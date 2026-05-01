@@ -32,7 +32,7 @@ export default function Onboarding() {
                 type="number" 
                 value={formData.monthlyIncome}
                 onChange={e => setFormData({...formData, monthlyIncome: Number(e.target.value)})}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none" 
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none text-gray-900" 
                 required 
               />
             </div>
@@ -42,7 +42,7 @@ export default function Onboarding() {
                 type="number" 
                 value={formData.recurringExpenses}
                 onChange={e => setFormData({...formData, recurringExpenses: Number(e.target.value)})}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none" 
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none text-gray-900" 
                 required 
               />
             </div>
@@ -55,7 +55,7 @@ export default function Onboarding() {
                 type="number" 
                 value={formData.savingsGoal}
                 onChange={e => setFormData({...formData, savingsGoal: Number(e.target.value)})}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none" 
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none text-gray-900" 
                 required 
               />
             </div>
@@ -66,7 +66,7 @@ export default function Onboarding() {
                 value={formData.goalName}
                 onChange={e => setFormData({...formData, goalName: e.target.value})}
                 placeholder="e.g., Spring Break Trip"
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none" 
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none text-gray-900" 
                 required 
               />
             </div>
@@ -78,7 +78,7 @@ export default function Onboarding() {
               rows={4}
               value={formData.spendingHabits}
               onChange={e => setFormData({...formData, spendingHabits: e.target.value})}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none resize-none" 
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none resize-none text-gray-900" 
               placeholder="I tend to buy a lot of snacks and occasionally splurge on clothes..."
               required 
             />
