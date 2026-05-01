@@ -19,7 +19,8 @@ export async function POST(req: Request) {
     // STRICT Requirement: Use environment variable only
     const apiKey = process.env.NIM_API_KEY;
     if (!apiKey) {
-      throw new Error("NIM_API_KEY environment variable is missing.");
+      console.error("[CRITICAL] NIM_API_KEY environment variable is missing in Vercel settings.");
+      throw new Error("API Key Missing");
     }
 
     // Basic sanitization to mitigate prompt injection
@@ -61,21 +62,41 @@ export async function POST(req: Request) {
     });
 
     if (!response.ok) {
-      throw new Error(`NVIDIA NIM API error: ${response.statusText}`);
+      const errText = await response.text();
+      console.error(`[API ERROR] NVIDIA NIM returned ${response.status}: ${errText}`);
+      throw new Error(`NVIDIA NIM API error: ${response.status}`);
     }
 
     const json = await response.json();
     let content = json.choices[0].message.content.trim();
     
-    if (content.startsWith('```json')) {
-      content = content.replace(/```json/g, '').replace(/```/g, '').trim();
-    }
+    // Clean up potential markdown blocks more aggressively
+    content = content.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
     
+    console.log("[LLM Raw Output]:", content); // Useful for debugging in Vercel logs
+    
+    // Attempt parsing
+    let parsedJson;
+    try {
+        parsedJson = JSON.parse(content);
+    } catch (parseError) {
+        console.error("[PARSE ERROR] Failed to parse LLM JSON output:", parseError);
+        throw new Error("Invalid JSON from LLM");
+    }
+
     // Zod Validation ensures we don't crash the frontend if LLM hallucinates structure
-    const parsedContent = AIResponseSchema.parse(JSON.parse(content));
-    return NextResponse.json(parsedContent);
+    try {
+        const validatedContent = AIResponseSchema.parse(parsedJson);
+        return NextResponse.json(validatedContent);
+    } catch (validationError) {
+        console.error("[VALIDATION ERROR] Zod schema mismatch:", validationError);
+        throw new Error("Schema Validation Failed");
+    }
+
   } catch (error: unknown) {
-    console.error("AI Error:", error);
+    // We log the specific error out to the Vercel console for you to see.
+    console.error("[FALLBACK TRIGGERED] AI Error caught in route:", error instanceof Error ? error.message : error);
+    
     // Graceful fallback for the hackathon demo if API fails or validation fails
     return NextResponse.json({
       budgetSummary: "You have a solid base, but there's room to optimize your spending.",
