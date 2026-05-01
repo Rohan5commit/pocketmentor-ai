@@ -1,0 +1,9 @@
+- [x] Working prototype deployed to Vercel
+- [x] Source code pushed to GitHub
+- [x] README with setup instructions
+- [x] Architecture diagram/document
+- [x] Project description for Devpost
+- [x] Demo Script
+- [x] Pitch Deck Outline
+- [x] Seeded Demo Data (works out of the box)
+- [x] NVIDIA NIM integration verified

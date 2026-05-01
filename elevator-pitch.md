@@ -1,0 +1,1 @@
+PocketMentor AI is a smart financial dashboard that helps students and young adults manage their money. Instead of just tracking expenses, it uses NVIDIA NIM AI to analyze your spending habits, warn you of risks, build a custom savings roadmap, and dynamically teach you financial concepts so you can build wealth with confidence.
